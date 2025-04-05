@@ -81,7 +81,7 @@ with st.sidebar:
 
 # ✅ **Load Default Dataset (if no file uploaded)**
 if uploaded_file is None:
-    df = pd.read_csv("https://github.com/Anbarasan6/Stock_Price_Movement_Prediction/blob/main/nifty50_data.csv")
+    df = pd.read_csv("nifty50_data.csv")
 else:
     df = pd.read_csv(uploaded_file)
 
