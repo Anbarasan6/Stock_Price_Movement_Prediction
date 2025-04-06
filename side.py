@@ -87,6 +87,8 @@ else:
 
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 
+df = df.round(2)  # ✅ Round all numerical values to 2 decimal places
+
 
 # 📆 **Filter Last One Year Data**
 last_year = df['Date'].max() - pd.DateOffset(years=1)
@@ -186,12 +188,15 @@ features = ['open-close', 'low-high', 'is_quarter_end']
 target = 'target'
 
 # ✂️ **Split Data**
-X_train, X_test, Y_train, Y_test = train_test_split(df[features], df[target], test_size=0.3, random_state=42)
+#X_train, X_test, Y_train, Y_test = train_test_split(df[features], df[target],random_state=42)
+X_train = df[features]
+Y_train = df[target]
+
 
 # 🔧 **Scale Features**
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+#X_test = scaler.transform(X_test)
 
 # 🚀 **Train ML Model (SVM)**
 model = SVC(kernel='rbf', C=1.0, random_state=42)
@@ -200,8 +205,14 @@ model.fit(X_train, Y_train)
 # 🔮 **Make Prediction**
 if predict_button:
     manual_data = np.array([[open_price - close_price, low_price - high_price, is_quarter_end]])
-    manual_data_scaled = scaler.transform(manual_data.reshape(1, -1))  # Fix Reshaping Issue
+    
+    # Convert to DataFrame with same feature names
+    manual_df = pd.DataFrame(manual_data, columns=['open-close', 'low-high', 'is_quarter_end'])
+    
+    # Apply scaling
+    manual_data_scaled = scaler.transform(manual_df)
 
+    # Predict
     prediction = model.predict(manual_data_scaled)
 
     if prediction[0] == 1:
