@@ -195,7 +195,7 @@ Y_train = df[target]
 
 # 🔧 **Scale Features**
 scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
+#X_train = scaler.fit_transform(X_train)
 #X_test = scaler.transform(X_test)
 
 # 🚀 **Train ML Model (SVM)**
