@@ -195,7 +195,7 @@ Y_train = df[target]
 
 # 🔧 **Scale Features**
 scaler = StandardScaler()
-#X_train = scaler.fit_transform(X_train)
+X_train = scaler.fit_transform(X_train)
 #X_test = scaler.transform(X_test)
 
 # 🚀 **Train ML Model (SVM)**
@@ -210,10 +210,10 @@ if predict_button:
     manual_df = pd.DataFrame(manual_data, columns=['open-close', 'low-high', 'is_quarter_end'])
     
     # Apply scaling
-    #manual_data_scaled = scaler.transform(manual_df)
+    manual_data_scaled = scaler.transform(manual_df)
 
     # Predict
-    prediction = model.predict(manual_data)
+    prediction = model.predict(manual_data_scaled)
 
     if prediction[0] == 1:
         st.success("✅ Stock will go UP 📈")
