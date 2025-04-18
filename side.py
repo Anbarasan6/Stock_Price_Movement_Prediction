@@ -213,7 +213,7 @@ if predict_button:
     #manual_data_scaled = scaler.transform(manual_df)
 
     # Predict
-    prediction = model.predict(manual_data_scaled)
+    prediction = model.predict(manual_data)
 
     if prediction[0] == 1:
         st.success("✅ Stock will go UP 📈")
